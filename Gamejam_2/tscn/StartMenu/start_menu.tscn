@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=3 uid="uid://h170p1qyhub3"]
+
+[ext_resource type="Script" path="res://tscn/StartMenu/start_menu.gd" id="1_1qu58"]
+[ext_resource type="Texture2D" uid="uid://ceutjkhavrf5r" path="res://tscn/StartMenu/Sprites/Black.png" id="2_27kle"]
+[ext_resource type="Script" path="res://tscn/StartMenu/setting_panel.gd" id="3_f04ta"]
+[ext_resource type="Texture2D" uid="uid://lxi3pvd72w1a" path="res://tscn/Player/sprites/icon.svg" id="4_lt8ye"]
+
+[sub_resource type="Theme" id="Theme_x1b3a"]
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_hbgju"]
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_qhxvm"]
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_fa3mh"]
+
+[node name="StartMenu" type="Node2D"]
+script = ExtResource("1_1qu58")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Black" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(1043, 595)
+scale = Vector2(5.172, 3.38)
+texture = ExtResource("2_27kle")
+
+[node name="Menu1" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -136.5
+offset_right = 77.0
+offset_bottom = 96.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Start" type="Button" parent="CanvasLayer/Menu1/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_x1b3a")
+text = "Start
+"
+
+[node name="Settings" type="Button" parent="CanvasLayer/Menu1/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hbgju")
+text = "Settings"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Menu1/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_qhxvm")
+text = "Quit
+"
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu1"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 743.0
+offset_top = 231.0
+offset_right = 1142.0
+offset_bottom = 363.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 96
+text = "The TItle
+"
+
+[node name="SettingPanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -580.0
+offset_top = -340.0
+offset_right = 620.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("3_f04ta")
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/SettingPanel"]
+offset_left = 1129.0
+offset_top = 17.0
+offset_right = 1265.0
+offset_bottom = 153.0
+scale = Vector2(0.4, 0.4)
+theme = SubResource("Theme_fa3mh")
+icon = ExtResource("4_lt8ye")
+
+[connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingPanel/CloseButton" to="CanvasLayer/SettingPanel" method="_on_close_button_pressed"]
