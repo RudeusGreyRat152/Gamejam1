@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://h170p1qyhub3"]
+[gd_scene load_steps=10 format=3 uid="uid://h170p1qyhub3"]
 
 [ext_resource type="Script" path="res://tscn/StartMenu/start_menu.gd" id="1_1qu58"]
 [ext_resource type="Texture2D" uid="uid://ceutjkhavrf5r" path="res://tscn/StartMenu/Sprites/Black.png" id="2_27kle"]
 [ext_resource type="Script" path="res://tscn/StartMenu/setting_panel.gd" id="3_f04ta"]
 [ext_resource type="Texture2D" uid="uid://lxi3pvd72w1a" path="res://tscn/Player/sprites/icon.svg" id="4_lt8ye"]
+[ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="5_cbs5n"]
 
 [sub_resource type="Theme" id="Theme_x1b3a"]
 default_font_size = 48
@@ -168,6 +169,25 @@ offset_right = 44.0
 offset_bottom = -5.0
 text = "主音量
 "
+
+[node name="CollapsibleContainer" type="Control" parent="CanvasLayer/SettingPanel"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 0
+offset_left = 202.0
+offset_top = 430.0
+offset_right = 242.0
+offset_bottom = 470.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("5_cbs5n")
+folding_direction_preset = 10
+sizing_constraint = 1
 
 [connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
