@@ -187,12 +187,12 @@ editor_description = "
 			
 Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
 clip_contents = true
-custom_minimum_size = Vector2(88, 40)
+custom_minimum_size = Vector2(88, 66)
 anchors_preset = 0
 offset_left = 593.0
 offset_top = 602.0
 offset_right = 681.0
-offset_bottom = 642.0
+offset_bottom = 668.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 script = ExtResource("5_cbs5n")
@@ -212,11 +212,8 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "无边框窗口"
 
-[node name="Button" type="Button" parent="CanvasLayer/SettingPanel/Window/CollapsibleContainer/VBoxContainer/Button2"]
+[node name="Button" type="Button" parent="CanvasLayer/SettingPanel/Window/CollapsibleContainer/VBoxContainer"]
 layout_mode = 2
-offset_top = -35.0
-offset_right = 88.0
-offset_bottom = -4.0
 text = "窗口化
 "
 
@@ -234,5 +231,5 @@ text = "窗口化
 [connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingPanel/CloseButton" to="CanvasLayer/SettingPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingPanel/Window/CollapsibleContainer/VBoxContainer/Button2" to="CanvasLayer/SettingPanel/Window" method="_on_button_2_pressed"]
-[connection signal="pressed" from="CanvasLayer/SettingPanel/Window/CollapsibleContainer/VBoxContainer/Button2/Button" to="CanvasLayer/SettingPanel/Window" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingPanel/Window/CollapsibleContainer/VBoxContainer/Button" to="CanvasLayer/SettingPanel/Window" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingPanel/Window/Ori_Button" to="CanvasLayer/SettingPanel/Window" method="_on_ori_button_pressed"]

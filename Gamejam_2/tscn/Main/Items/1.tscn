@@ -1,17 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0vlk4lqbl3so"]
+[gd_scene load_steps=6 format=3 uid="uid://b0vlk4lqbl3so"]
 
 [ext_resource type="Script" path="res://tscn/Main/Items/1.gd" id="1_vywfn"]
-[ext_resource type="Texture2D" uid="uid://8tx1le0l8a8x" path="res://tscn/Main/Light/light.png" id="2_i4qes"]
+[ext_resource type="Script" path="res://tscn/Main/Items/coll_area_2d.gd" id="3_burx7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nh4fi"]
 
-[node name="1" type="StaticBody2D"]
-position = Vector2(30, -51)
-script = ExtResource("1_vywfn")
+[sub_resource type="CircleShape2D" id="CircleShape2D_57hv0"]
+radius = 115.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("2_i4qes")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxwxo"]
+
+[node name="1" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_vywfn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nh4fi")
+
+[node name="LightArea" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightArea"]
+shape = SubResource("CircleShape2D_57hv0")
+
+[node name="CollArea2D" type="Area2D" parent="."]
+script = ExtResource("3_burx7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollArea2D"]
+shape = SubResource("RectangleShape2D_qxwxo")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="LightArea" to="." method="_on_light_area_body_entered"]
+[connection signal="body_exited" from="LightArea" to="." method="_on_light_area_body_exited"]
+[connection signal="body_shape_exited" from="LightArea" to="." method="_on_light_area_body_shape_exited"]
+[connection signal="area_shape_entered" from="CollArea2D" to="." method="_on_coll_area_2d_area_shape_entered"]
+[connection signal="body_entered" from="CollArea2D" to="." method="_on_coll_area_2d_body_entered"]
