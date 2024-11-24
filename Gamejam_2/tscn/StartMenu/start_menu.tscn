@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://h170p1qyhub3"]
+[gd_scene load_steps=12 format=3 uid="uid://h170p1qyhub3"]
 
 [ext_resource type="Script" path="res://tscn/StartMenu/start_menu.gd" id="1_1qu58"]
 [ext_resource type="Texture2D" uid="uid://ceutjkhavrf5r" path="res://tscn/StartMenu/Sprites/Black.png" id="2_27kle"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://lxi3pvd72w1a" path="res://tscn/Player/sprites/icon.svg" id="4_lt8ye"]
 [ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="5_cbs5n"]
 [ext_resource type="Script" path="res://tscn/StartMenu/window.gd" id="5_jpmrm"]
+[ext_resource type="Texture2D" uid="uid://cgrnyyde3ebo2" path="res://tscn/StartMenu/IMG_5091.JPG" id="7_f7uru"]
 
 [sub_resource type="Theme" id="Theme_x1b3a"]
 default_font_size = 48
@@ -36,10 +37,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -393.0
+offset_top = 111.0
+offset_right = -353.0
+offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -94,6 +95,7 @@ text = "The TItle
 "
 
 [node name="SettingPanel" type="Panel" parent="CanvasLayer"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -225,6 +227,11 @@ offset_right = 681.0
 offset_bottom = 589.0
 text = "窗口化
 "
+
+[node name="Img5091" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("7_f7uru")
 
 [connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu1/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

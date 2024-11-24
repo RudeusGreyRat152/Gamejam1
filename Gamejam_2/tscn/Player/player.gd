@@ -1,12 +1,16 @@
 extends CharacterBody2D
 @onready var lang_tiao_timer: Timer = $LangTiaoTimer
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
 var aaaaa = 35    #左右移动中的加速度
+var x
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -300.0
 
+func _ready() -> void:
+	animated_sprite_2d.position.x += 0
 #左右移动
 func move():
 	var direction = Input.get_axis("left", "right") 
@@ -27,6 +31,32 @@ func langtiao():
 		lang_tiao_timer.start()
 		
 func _physics_process(delta: float) -> void:
+	
+#状态
+	if is_on_floor() and velocity.x == 0:
+		animated_sprite_2d.speed_scale = 1.0
+		animated_sprite_2d.play("Idle")
+	elif is_on_floor():
+		#animated_sprite_2d.speed_scale = velocity.x / 100
+		animated_sprite_2d.play("Walk")
+	#else:
+		#animated_sprite_2d.speed_scale = 1.0
+		#animated_sprite_2d.play("jump")
+	if x == -1:
+		animated_sprite_2d.flip_h = true
+		
+	elif x == 1:
+		animated_sprite_2d.flip_h = false
+		
+		
+	#x,y检测
+	if Input.is_action_just_pressed("right"):
+		x = 1
+	if Input.is_action_just_pressed("left"):
+		x = -1
+		
+		
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

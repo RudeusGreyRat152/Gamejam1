@@ -34,6 +34,10 @@ func _on_button_pressed() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	# 设置窗口为有边框模式
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+	# 设置窗口大小为 800x600
+	DisplayServer.window_set_size(Vector2i(800, 600))
+	# 将窗口居中
+	DisplayServer.window_set_position(DisplayServer.window_get_position() + (DisplayServer.screen_get_size() - Vector2i(800, 600)) / 2)
 func _on_button_2_pressed() -> void:
 	window = 0
 	ori_button.text = "无边框窗口"
