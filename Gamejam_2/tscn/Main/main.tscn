@@ -1009,6 +1009,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nsyfw")
 
 [node name="Main" type="Node2D"]
+physics_interpolation_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 physics_interpolation_mode = 1
@@ -1023,6 +1024,7 @@ physics_interpolation_mode = 1
 position = Vector2(315, -273)
 
 [node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target")]
+physics_interpolation_mode = 1
 script = ExtResource("2_1t2sb")
 follow_mode = 1
 follow_target = NodePath("..")
@@ -1034,6 +1036,7 @@ tween_resource = SubResource("Resource_cxs4j")
 [node name="PointLight2D" type="PointLight2D" parent="Player/Light"]
 position = Vector2(3.05176e-05, -3.05176e-05)
 scale = Vector2(0.536, 0.536)
+color = Color(0.843137, 1, 1, 1)
 texture = ExtResource("6_x8jxp")
 
 [node name="LightStaticBody2D" type="StaticBody2D" parent="Player/Light"]
@@ -1058,6 +1061,7 @@ tile_map_data = PackedByteArray("AADl////AAAAAAAAAADm////AAAAAAAAAADn////AAAAAAA
 tile_set = SubResource("TileSet_ek3c6")
 
 [node name="MainLight" type="Node2D" parent="."]
+visible = false
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="MainLight"]
 position = Vector2(-398, -357)
