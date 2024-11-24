@@ -1063,6 +1063,7 @@ tile_map_data = PackedByteArray("AADl////AAAAAAAAAADm////AAAAAAAAAADn////AAAAAAA
 tile_set = SubResource("TileSet_ek3c6")
 
 [node name="MainLight" type="Node2D" parent="."]
+visible = false
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="MainLight"]
 position = Vector2(-398, -357)
