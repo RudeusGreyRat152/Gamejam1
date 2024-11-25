@@ -11,6 +11,7 @@ const JUMP_VELOCITY = -300.0
 
 func _ready() -> void:
 	animated_sprite_2d.position.x += 0
+	add_to_group("player")
 #左右移动
 func move():
 	var direction = Input.get_axis("left", "right") 

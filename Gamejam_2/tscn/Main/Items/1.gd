@@ -1,10 +1,10 @@
 extends StaticBody2D
 @onready var light_area: Area2D = $LightArea
-@onready var light_static_body_2d: StaticBody2D = $"../../Player/Light/LightStaticBody2D"
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var timer: Timer = $Timer
 @onready var timer_2: Timer = $Timer2
 @onready var sprite: Node2D = $Sprite
+@onready var light_static_body_2d: CharacterBody2D = $"../../Player/Light/LightStaticBody2D"
 
 
 var aaa = 0
@@ -13,7 +13,7 @@ var sametest = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("suiji")
-
+	light_static_body_2d = get_node("/root/Main/Player/Light/LightStaticBody2D")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if timer.time_left > 0:
@@ -40,6 +40,7 @@ func _on_light_area_body_shape_exited(body_rid: RID, body: Node2D , body_shape_i
 	#self.visible = true
 	#self.collision_layer = 1
 	#self.collision_mask = 1
+	#if body.is_in_group("light"):
 	if abs(self.global_position.x - light_static_body_2d.global_position.x) >= 120.0 and aaa==0:
 		timer.start()
 		self.position.x = (rng.randf()-0.5) * 1000

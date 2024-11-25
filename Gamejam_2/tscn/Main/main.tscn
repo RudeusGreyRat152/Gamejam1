@@ -1,22 +1,16 @@
-[gd_scene load_steps=18 format=4 uid="uid://dtau8hu4hjf3i"]
+[gd_scene load_steps=21 format=4 uid="uid://dtau8hu4hjf3i"]
 
 [ext_resource type="PackedScene" uid="uid://mayxkj7tvlnp" path="res://tscn/Player/player.tscn" id="1_hiv8f"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_hjse2"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_1t2sb"]
 [ext_resource type="Texture2D" uid="uid://babbflkq3piv0" path="res://tscn/Main/Tilemap/ground.png" id="2_fljcw"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_ka2cc"]
 [ext_resource type="Texture2D" uid="uid://btsn2ktjub0cb" path="res://tscn/Main/Tilemap/Grey.png" id="6_pujj2"]
 [ext_resource type="Texture2D" uid="uid://cjw7flys1na8b" path="res://tscn/Main/Light/light2.png" id="6_x8jxp"]
-[ext_resource type="Script" path="res://tscn/Main/Light/static_body_2d.gd" id="7_at7cv"]
+[ext_resource type="Script" path="res://tscn/Main/Light/collision_shape_2d.gd" id="8_4caqj"]
 [ext_resource type="PackedScene" uid="uid://b0vlk4lqbl3so" path="res://tscn/Main/Items/1.tscn" id="8_lx3a5"]
+[ext_resource type="Shader" path="res://tscn/Main/fog.gdshader" id="10_hmpio"]
 [ext_resource type="Texture2D" uid="uid://coaxnkjqlx2k2" path="res://icon.svg" id="10_o5xkf"]
-
-[sub_resource type="Resource" id="Resource_cxs4j"]
-resource_local_to_scene = true
-script = ExtResource("3_ka2cc")
-duration = 0.4
-transition = 1
-ease = 0
+[ext_resource type="Shader" path="res://tscn/Main/main.gdshader" id="11_12rtt"]
+[ext_resource type="PackedScene" uid="uid://ci15wbj56d4vm" path="res://tscn/Main/ChangeAreas/area_2d.tscn" id="11_odyjt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ej6bt"]
 
@@ -1008,18 +1002,31 @@ texture = ExtResource("2_fljcw")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_xbl81")
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2nm67"]
+polygon = PackedVector2Array(-896, -16, 1136, -16, 1136, 0, -896, 0)
+
 [sub_resource type="Curve2D" id="Curve2D_mbqfp"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -635, 20, 0, 0, 0, 0, 825, 20)
+"points": PackedVector2Array(0, 0, 0, 0, -639, 90, 0, 0, 0, 0, 825, 90)
 }
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ssmyd"]
+shader = ExtResource("10_hmpio")
+shader_parameter/color = Vector3(0.33, 0.15, 0.82)
+shader_parameter/OCTAVES = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_facrw"]
+shader = ExtResource("11_12rtt")
+shader_parameter/color = Vector3(0.35, 0.48, 0.95)
+shader_parameter/OCTAVES = 4
 
 [node name="Main" type="Node2D"]
 physics_interpolation_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-physics_interpolation_mode = 1
-position = Vector2(315, -273)
+physics_interpolation_mode = 2
+position = Vector2(-74, -100)
 zoom = Vector2(4, 4)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
@@ -1027,38 +1034,30 @@ script = ExtResource("1_hjse2")
 
 [node name="Player" parent="." instance=ExtResource("1_hiv8f")]
 physics_interpolation_mode = 1
-position = Vector2(315, -273)
-
-[node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target", "follow_path")]
-physics_interpolation_mode = 1
-script = ExtResource("2_1t2sb")
-follow_mode = 5
-follow_target = NodePath("..")
-follow_path = NodePath("../../Path2D")
-zoom = Vector2(4, 4)
-tween_resource = SubResource("Resource_cxs4j")
+position = Vector2(315, -354)
 
 [node name="Light" type="Node2D" parent="Player"]
-position = Vector2(14, -9)
+position = Vector2(0, -23)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player/Light"]
-position = Vector2(3.05176e-05, -3.05176e-05)
-scale = Vector2(0.536, 0.536)
+position = Vector2(5, 0)
+scale = Vector2(0.512, 0.512)
 color = Color(0.843137, 1, 1, 1)
+energy = 1.5
+shadow_enabled = true
 texture = ExtResource("6_x8jxp")
 
-[node name="LightStaticBody2D" type="StaticBody2D" parent="Player/Light"]
+[node name="LightStaticBody2D" type="CharacterBody2D" parent="Player/Light"]
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("7_at7cv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Light/LightStaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Light/LightStaticBody2D"]
 shape = SubResource("CircleShape2D_ej6bt")
+script = ExtResource("8_4caqj")
 
 [node name="Tilemap" type="Node2D" parent="."]
-visible = false
 
 [node name="Background" type="TileMapLayer" parent="Tilemap"]
 z_index = -10
@@ -1070,10 +1069,13 @@ tile_set = SubResource("TileSet_mrsqj")
 tile_map_data = PackedByteArray("AADl////AAAAAAAAAADm////AAAAAAAAAADn////AAAAAAAAAADo////AAAAAAAAAADp////AAAAAAAAAADq////AAAAAAAAAADr////AAAAAAAAAADs////AAAAAAAAAADt////AAAAAAAAAADu////AAAAAAAAAADv////AAAAAAAAAADw////AAAAAAAAAADx////AAAAAAAAAADy////AAAAAAAAAADz////AAAAAAAAAAD0////AAAAAAAAAAD1////AAAAAAAAAAD2////AAAAAAAAAAD3////AAAAAAAAAAD4////AAAAAAAAAAD5////AAAAAAAAAAD6////AAAAAAAAAAD7////AAAAAAAAAAD8////AAAAAAAAAAD9////AAAAAAAAAAD+////AAAAAAAAAAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAKAP//AAAAAAAAAAALAP//AAAAAAAAAAAMAP//AAAAAAAAAAANAP//AAAAAAAAAAAOAP//AAAAAAAAAAAPAP//AAAAAAAAAAAQAP//AAAAAAAAAAARAP//AAAAAAAAAAASAP//AAAAAAAAAAATAP//AAAAAAAAAAAUAP//AAAAAAAAAAAVAP//AAAAAAAAAAAWAP//AAAAAAAAAAAXAP//AAAAAAAAAAAYAP//AAAAAAAAAAAZAP//AAAAAAAAAAAaAP//AAAAAAAAAAAbAP//AAAAAAAAAAAcAP//AAAAAAAAAAAdAP//AAAAAAAAAAAeAP//AAAAAAAAAAAfAP//AAAAAAAAAAAgAP//AAAAAAAAAAAhAP//AAAAAAAAAAAiAP//AAAAAAAAAAAjAP//AAAAAAAAAAAkAP//AAAAAAAAAAAlAP//AAAAAAAAAAAmAP//AAAAAAAAAAAnAP//AAAAAAAAAAAoAP//AAAAAAAAAAApAP//AAAAAAAAAAAqAP//AAAAAAAAAAArAP//AAAAAAAAAAAsAP//AAAAAAAAAAAtAP//AAAAAAAAAAAuAP//AAAAAAAAAAAvAP//AAAAAAAAAAAwAP//AAAAAAAAAAAxAP//AAAAAAAAAAAyAP//AAAAAAAAAAAzAP//AAAAAAAAAAA0AP//AAAAAAAAAAA1AP//AAAAAAAAAAA2AP//AAAAAAAAAAA3AP//AAAAAAAAAAA4AP//AAAAAAAAAAA5AP//AAAAAAAAAAA6AP//AAAAAAAAAAA7AP//AAAAAAAAAAA8AP//AAAAAAAAAAA9AP//AAAAAAAAAAA+AP//AAAAAAAAAAA/AP//AAAAAAAAAABAAP//AAAAAAAAAABBAP//AAAAAAAAAABCAP//AAAAAAAAAABDAP//AAAAAAAAAABEAP//AAAAAAAAAABFAP//AAAAAAAAAABGAP//AAAAAAAAAADk////AAABAAEAAADj////AAABAAEAAADi////AAABAAEAAADh////AAABAAEAAADg////AAABAAEAAADf////AAABAAEAAADe////AAABAAEAAADd////AAABAAEAAADc////AAABAAEAAADb////AAABAAEAAADa////AAABAAEAAADZ////AAABAAEAAADY////AAABAAEAAADX////AAABAAEAAADW////AAABAAEAAADV////AAABAAEAAADU////AAABAAEAAADT////AAABAAEAAADS////AAABAAEAAADR////AAABAAEAAADQ////AAABAAEAAADP////AAABAAEAAADO////AAABAAEAAADN////AAABAAEAAADM////AAABAAEAAADL////AAABAAEAAADK////AAABAAEAAADJ////AAABAAEAAADI////AAABAAEAAAA=")
 tile_set = SubResource("TileSet_ek3c6")
 
-[node name="MainLight" type="Node2D" parent="."]
-visible = false
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Tilemap"]
+occluder = SubResource("OccluderPolygon2D_2nm67")
+occluder_light_mask = 1023
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="MainLight"]
+[node name="BlackLight" type="Node2D" parent="Tilemap"]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Tilemap/BlackLight"]
 position = Vector2(-398, -357)
 rotation = 1.57079
 blend_mode = 1
@@ -1150,3 +1152,23 @@ texture = ExtResource("10_o5xkf")
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2(-18, -171)
 curve = SubResource("Curve2D_mbqfp")
+
+[node name="ChangeAreas" type="Node2D" parent="."]
+
+[node name="Area2D" parent="ChangeAreas" instance=ExtResource("11_odyjt")]
+position = Vector2(-74, -100)
+
+[node name="Area2D2" parent="ChangeAreas" instance=ExtResource("11_odyjt")]
+position = Vector2(567, -100)
+
+[node name="Fog" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_ssmyd")
+position = Vector2(449, -36)
+scale = Vector2(20, 20)
+texture = ExtResource("10_o5xkf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_facrw")
+scale = Vector2(20, 20)
+texture = ExtResource("10_o5xkf")

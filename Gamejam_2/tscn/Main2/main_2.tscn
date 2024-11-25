@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=4 uid="uid://dqkyqi82rv842"]
+[gd_scene load_steps=15 format=4 uid="uid://dqkyqi82rv842"]
 
+[ext_resource type="Script" path="res://tscn/Main2/gamemanager.gd" id="1_agn8j"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_dicvt"]
 [ext_resource type="Texture2D" uid="uid://drpxtwny65l6f" path="res://tscn/state_spirit/TextureRect/ad573dea-0cf4-49de-9ea2-a40f31a28a55.png" id="2_lt3gu"]
 [ext_resource type="Texture2D" uid="uid://by5cmvgf2olhx" path="res://tscn/state_spirit/TextureRect/spirit_picture.png" id="3_yafpl"]
@@ -1006,6 +1007,9 @@ sources/0 = SubResource("TileSetAtlasSource_qn0jt")
 
 [node name="Main2" type="Node2D"]
 
+[node name="Gamemanager2" type="Node" parent="."]
+script = ExtResource("1_agn8j")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 physics_interpolation_mode = 1
 position = Vector2(315, -273)
@@ -1014,21 +1018,15 @@ zoom = Vector2(4, 4)
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("1_dicvt")
 
-[node name="TextureRect" type="TextureRect" parent="Camera2D"]
-offset_left = 46.0
-offset_top = -96.0
-offset_right = 173.0
-offset_bottom = -87.0
-texture = ExtResource("2_lt3gu")
-expand_mode = 1
-
-[node name="Fill_spirit" type="TextureRect" parent="Camera2D"]
-offset_left = 46.0
-offset_top = -96.0
-offset_right = 173.0
-offset_bottom = -87.0
-texture = ExtResource("3_yafpl")
-expand_mode = 1
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Camera2D"]
+offset_top = -82.0
+offset_right = 128.0
+offset_bottom = -6.0
+scale = Vector2(3, 0.2)
+max_value = 10000.0
+value = 10000.0
+texture_under = ExtResource("2_lt3gu")
+texture_progress = ExtResource("3_yafpl")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 5
@@ -1046,6 +1044,7 @@ zoom = Vector2(4, 4)
 tween_resource = SubResource("Resource_wg5vu")
 
 [node name="Tilemap" type="Node2D" parent="."]
+visible = false
 
 [node name="Background" type="TileMapLayer" parent="Tilemap"]
 z_index = -10
