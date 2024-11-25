@@ -12,7 +12,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	current_spirit -= max(0,current_spirit)
+	current_spirit -= rate * delta
+	current_spirit = max(0,current_spirit)
 	pass
 
 func update_spirit():
