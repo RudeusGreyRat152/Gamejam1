@@ -15,7 +15,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("test"):
+		print(self.global_position)
 	
 func randnum():
 	var random_index = rng.randi_range(0, numbers.size() - 1)
@@ -23,16 +24,22 @@ func randnum():
 
 func randpos():
 	gamemanager.pos[random_number-1][1] = 0
-	for i in range(10):
-		if gamemanager.pos[random_number-1][1] != 0:
-			randnum()
-			print("!",i, gamemanager.pos[random_number-1][1] )
+	#for i in range(100):
+		#if gamemanager.pos[random_number-1][1] != 0:
+			#randnum()
+			#print("!",i, gamemanager.pos[random_number-1][1] )
+		#else:
+			#break
 	if gamemanager.pos[random_number-1][1] == 0:
-		for i in range(10):
-			if abs(gamemanager.pos[random_number-1][0].x - player.position.x) <= 120:
+		for i in range(100):
+			if abs(gamemanager.pos[random_number-1][0].x - player.position.x) <= 120 or gamemanager.pos[random_number-1][1] != 0:
 				randnum()
+			else:
+				break
 		gamemanager.pos[random_number-1][1] = 1
 		self.position = gamemanager.pos[random_number-1][0]
+		print("!",gamemanager.pos[random_number-1][1])
+	
 
 func leave():
 	gamemanager.pos[random_number-1][1] = 0
