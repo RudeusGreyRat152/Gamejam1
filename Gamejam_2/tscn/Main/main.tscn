@@ -21,7 +21,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ej6bt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5j8iq"]
-radius = 116.966
+radius = 68.884
 
 [sub_resource type="Resource" id="Resource_kalwv"]
 script = ExtResource("8_vwt2y")
@@ -1070,6 +1070,7 @@ collision_layer = 128
 collision_mask = 128
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Light/LightStaticBody2D"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Light/LightStaticBody2D"]
 shape = SubResource("CircleShape2D_ej6bt")
@@ -1225,7 +1226,42 @@ position = Vector2(-204, 96)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("14_a75r2")
 
+[node name="Lights" type="Node2D" parent="."]
+position = Vector2(0, 75)
+
+[node name="Light2" type="Node2D" parent="Lights"]
+position = Vector2(0, -23)
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights/Light2"]
+position = Vector2(5, 0)
+scale = Vector2(0.512, 0.512)
+color = Color(0.843137, 1, 1, 1)
+energy = 1.5
+shadow_enabled = true
+texture = ExtResource("6_x8jxp")
+
+[node name="LightStaticBody2D" type="CharacterBody2D" parent="Lights/Light2"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="Lights/Light2/LightStaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lights/Light2/LightStaticBody2D"]
+shape = SubResource("CircleShape2D_ej6bt")
+script = ExtResource("8_4caqj")
+
+[node name="LightArea" type="Area2D" parent="Lights/Light2"]
+script = ExtResource("5_nhpym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lights/Light2/LightArea"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_5j8iq")
+
 [connection signal="area_entered" from="Player/Light/LightArea" to="Player/Light/LightArea" method="_on_area_entered"]
 [connection signal="area_exited" from="Player/Light/LightArea" to="Player/Light/LightArea" method="_on_area_exited"]
 [connection signal="body_entered" from="Player/Light/LightArea" to="Player/Light/LightArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Player/Light/LightArea" to="Player/Light/LightArea" method="_on_body_exited"]
+[connection signal="area_entered" from="Lights/Light2/LightArea" to="Lights/Light2/LightArea" method="_on_area_entered"]
+[connection signal="area_exited" from="Lights/Light2/LightArea" to="Lights/Light2/LightArea" method="_on_area_exited"]
+[connection signal="body_entered" from="Lights/Light2/LightArea" to="Lights/Light2/LightArea" method="_on_body_entered"]
+[connection signal="body_exited" from="Lights/Light2/LightArea" to="Lights/Light2/LightArea" method="_on_body_exited"]
